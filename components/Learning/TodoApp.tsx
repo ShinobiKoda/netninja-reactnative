@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FlatList, StyleSheet, View, Alert } from "react-native";
+import { Alert, FlatList, StyleSheet, View } from "react-native";
 import Header from "./Header";
 import TodoForm from "./TodoForm";
 import TodoItem from "./TodoItem";
@@ -22,19 +22,18 @@ const TodoApp = () => {
       setTodo((prevTodos) => {
         return [{ text: text, key: Math.random().toString() }, ...prevTodos];
       });
-    }else{
+    } else {
       Alert.alert("Oops", "Todos must be three chars long", [
-        {text: "Understood", onPress: () => console.log("Alert closed")}
-      ])
+        { text: "Understood", onPress: () => console.log("Alert closed") },
+      ]);
     }
   };
 
   return (
     <View style={styles.container}>
-      <View>
-        {/*  */}
-        <Header />
-        {/* Todo Form */}
+      {/*  */}
+      <Header />
+      <View style={styles.content}>
         <TodoForm submitHandler={submitHandler} />
         <View style={styles.list}>
           <FlatList
@@ -53,7 +52,12 @@ const TodoApp = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 80,
+    flex: 1,
+    paddingInline: 16,
+
+  },
+
+  content: {
     flex: 1,
   },
 
