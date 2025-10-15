@@ -1,17 +1,24 @@
 import { useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const List = () => {
   const [people, setPeople] = useState([
     { name: "Praise", age: 20, id: 1 },
     { name: "Praise", age: 20, id: 2 },
-    { name: "Praise", age: 20, id: 3 },
-    { name: "Praise", age: 20, id: 4 },
-    { name: "Praise", age: 20, id: 5 },
-    { name: "Praise", age: 20, id: 6 },
-    { name: "Praise", age: 20, id: 7 },
-    { name: "Praise", age: 20, id: 8 },
   ]);
+
+  const pressHandler = (id: number) => {
+    console.log(id)
+    setPeople((prevPeople) => {
+      return prevPeople.filter(person => person.id != id)
+    })
+  }
 
   return (
     <View style={styles.container}>
@@ -22,10 +29,12 @@ const List = () => {
         contentContainerStyle={styles.listContainer}
         data={people}
         renderItem={({ item }) => (
-          <View style={styles.listItem}>
-            <Text style={styles.listText}>Name: {item.name}</Text>
-            <Text style={styles.listText}>Age: {item.age}</Text>
-          </View>
+          <TouchableOpacity onPress={()=> pressHandler(item.id)}>
+            <View style={styles.listItem}>
+              <Text style={styles.listText}>Name: {item.name}</Text>
+              <Text style={styles.listText}>Age: {item.age}</Text>
+            </View>
+          </TouchableOpacity>
         )}
       />
     </View>
@@ -35,7 +44,6 @@ const List = () => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 50,
-    flex: 1,
   },
 
   listHeading: {
@@ -46,7 +54,7 @@ const styles = StyleSheet.create({
   listContainer: {
     display: "flex",
     flexDirection: "column",
-    gap: 40,
+    gap: 20,
   },
 
   listItem: {
@@ -58,8 +66,8 @@ const styles = StyleSheet.create({
   },
 
   listText: {
-    color: "white"
-  }
+    color: "white",
+  },
 });
 
 export default List;
